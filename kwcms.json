@@ -3,7 +3,7 @@
   "name": "kw_afterloader",
   "description": "KW loader of configurations",
   "source": "https://github.com/alex-kalanis/kw_afterloader",
-  "license": "BSD 3-Clause",
+  "license": "BSD-3-Clause",
   "require": {
     "php": ">=7.2.0"
   },

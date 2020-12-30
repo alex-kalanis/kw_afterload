@@ -1,9 +1,16 @@
 {
     "name": "alex-kalanis/kw_afterload",
     "description": "Autoloading configurations by separate files",
-    "keywords": [],
-    "license": "BSD 3-Clause",
-    "type": "project",
+    "keywords": [
+        "config",
+        "configuration",
+        "autoload",
+        "afterload",
+        "bootstrap",
+        "autoloading"
+    ],
+    "license": "BSD-3-Clause",
+    "type": "library",
     "require": {
         "php": ">=7.2.0"
     },

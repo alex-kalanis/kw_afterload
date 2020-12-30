@@ -71,7 +71,7 @@ class ManageTest extends CommonTestClass
     }
 
     /**
-     * @expectedException \kalanis\kw_afterload\AfterloadException
+     * @throws AfterloadException
      */
     public function testFailRead(): void
     {
@@ -81,11 +81,12 @@ class ManageTest extends CommonTestClass
         $in = $files->getFiles();
         $in = reset($in);
         chmod($in->getFullName(), 0222);
+        $this->expectException(AfterloadException::class);
         $files->getInput('erteddf'); // fail
     }
 
     /**
-     * @expectedException \kalanis\kw_afterload\AfterloadException
+     * @throws AfterloadException
      */
     public function testDoubleAdd(): void
     {
@@ -95,11 +96,12 @@ class ManageTest extends CommonTestClass
         $in = $files->getFiles();
         $in = reset($in);
         chmod($in->getFullName(), 0444);
+        $this->expectException(AfterloadException::class);
         $files->addInput('bnuuu', 'lkjhgfd'); // fail
     }
 
     /**
-     * @expectedException \kalanis\kw_afterload\AfterloadException
+     * @throws AfterloadException
      */
     public function testDoubleUpdate(): void
     {
@@ -109,16 +111,18 @@ class ManageTest extends CommonTestClass
         $in = $files->getFiles();
         $in = reset($in);
         chmod($in->getFullName(), 0444);
+        $this->expectException(AfterloadException::class);
         $files->updateInput('kldsg', 'lkjhgfd', false); // fail
     }
 
     /**
-     * @expectedException \kalanis\kw_afterload\AfterloadException
+     * @throws AfterloadException
      */
     public function testSearch(): void
     {
         $files = new FilesMock();
         $this->assertEmpty($files->getFiles(), 'Something left from previous run');
+        $this->expectException(AfterloadException::class);
         $files->getInput('unknown'); // fail
     }
 }
