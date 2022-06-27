@@ -15,10 +15,14 @@ namespace kalanis\kw_afterload;
  */
 class Afterload
 {
-    public static function run()
+    public static function run(): void
     {
         $self = new static();
         $self->process();
+    }
+
+    final public function __construct()
+    {
     }
 
     /**
@@ -41,6 +45,9 @@ class Afterload
         }
     }
 
+    /**
+     * @return array<string> array of paths
+     */
     protected function listFiles(): array
     {
         $path = realpath(implode(DIRECTORY_SEPARATOR, $this->path()));
@@ -49,19 +56,21 @@ class Afterload
         }
         $available = [];
         $files = scandir($path);
-        foreach ($files as $file) {
-            if (
-                is_file($path . DIRECTORY_SEPARATOR . $file)
-                && strpos($file, '.php')
-            ) {
-                $available[] = $path . DIRECTORY_SEPARATOR . $file;
+        if (false !== $files) {
+            foreach ($files as $file) {
+                if (
+                    is_file($path . DIRECTORY_SEPARATOR . $file)
+                    && strpos($file, '.php')
+                ) {
+                    $available[] = $path . DIRECTORY_SEPARATOR . $file;
+                }
             }
         }
         return $available;
     }
 
     /**
-     * @return array
+     * @return array<string>
      * @codeCoverageIgnore could be set outside - like from tests
      */
     protected function path(): array

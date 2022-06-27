@@ -28,28 +28,34 @@ class Files
 
     protected function generatePaths(): void
     {
-        $this->enabledPath = realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', '..', 'data']));
-        $this->disabledPath = realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', '..', 'data', 'disabled']));
+        $this->enabledPath = strval(realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', '..', 'data'])));
+        $this->disabledPath = strval(realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', '..', 'data', 'disabled'])));
     }
 
     protected function loadFiles(): void
     {
         $this->files = [];
         if ($this->enabledPath) {
-            foreach (scandir($this->enabledPath) as $item) {
-                if (is_file($this->enabledPath . DIRECTORY_SEPARATOR . $item) && ('.' != $item[0])) {
-                    $fileInput = clone $this->fileInput;
-                    $fileInput->setData($this->enabledPath, $item, true);
-                    $this->files[] = $fileInput;
+            $items = scandir($this->enabledPath);
+            if (false !== $items) {
+                foreach ($items as $item) {
+                    if (is_file($this->enabledPath . DIRECTORY_SEPARATOR . $item) && ('.' != $item[0])) {
+                        $fileInput = clone $this->fileInput;
+                        $fileInput->setData($this->enabledPath, $item, true);
+                        $this->files[] = $fileInput;
+                    }
                 }
             }
         }
         if ($this->disabledPath) {
-            foreach (scandir($this->disabledPath) as $item) {
-                if (is_file($this->disabledPath . DIRECTORY_SEPARATOR . $item) && ('.' != $item[0])) {
-                    $fileInput = clone $this->fileInput;
-                    $fileInput->setData($this->disabledPath, $item, false);
-                    $this->files[] = $fileInput;
+            $items = scandir($this->disabledPath);
+            if (false !== $items) {
+                foreach ($items as $item) {
+                    if (is_file($this->disabledPath . DIRECTORY_SEPARATOR . $item) && ('.' != $item[0])) {
+                        $fileInput = clone $this->fileInput;
+                        $fileInput->setData($this->disabledPath, $item, false);
+                        $this->files[] = $fileInput;
+                    }
                 }
             }
         }
@@ -69,8 +75,8 @@ class Files
     /**
      * @param string $name
      * @param string $content
-     * @return $this
      * @throws AfterloadException
+     * @return $this
      */
     public function addInput(string $name, string $content): self
     {
@@ -85,8 +91,8 @@ class Files
 
     /**
      * @param string $name
-     * @return string
      * @throws AfterloadException
+     * @return string
      */
     public function getInput(string $name): string
     {
@@ -102,8 +108,8 @@ class Files
      * @param string $name
      * @param string $content
      * @param bool $withUnlink
-     * @return $this
      * @throws AfterloadException
+     * @return $this
      */
     public function updateInput(string $name, string $content, bool $withUnlink = true): self
     {
@@ -140,8 +146,8 @@ class Files
 
     /**
      * @param string $name
-     * @return $this
      * @throws AfterloadException
+     * @return $this
      */
     public function enable(string $name): self
     {
@@ -157,8 +163,8 @@ class Files
 
     /**
      * @param string $name
-     * @return $this
      * @throws AfterloadException
+     * @return $this
      */
     public function disable(string $name): self
     {
@@ -174,8 +180,8 @@ class Files
 
     /**
      * @param string $name
-     * @return FileInput
      * @throws AfterloadException
+     * @return FileInput
      */
     protected function &searchFile(string $name): FileInput
     {

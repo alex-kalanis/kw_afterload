@@ -13,6 +13,7 @@ use Exception;
  */
 final class AfterloadException extends Exception
 {
+    /** @var Exception|null */
     protected $prev = null;
 
     public function addPrev(?Exception $exception = null): self

@@ -3,6 +3,10 @@
 namespace kalanis\kw_afterload\Manage;
 
 
+/**
+ * Class FileInput
+ * @package kalanis\kw_afterload\Manage
+ */
 class FileInput
 {
     /** @var string */

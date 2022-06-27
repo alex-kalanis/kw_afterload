@@ -133,7 +133,7 @@ class FilesMock extends Files
     protected function generatePaths(): void
     {
         parent::generatePaths();
-        $this->enabledPath = realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'test_conf_enabled']));
-        $this->disabledPath = realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'test_conf_disabled']));
+        $this->enabledPath = strval(realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'test_conf_enabled'])));
+        $this->disabledPath = strval(realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', 'test_conf_disabled'])));
     }
 }
